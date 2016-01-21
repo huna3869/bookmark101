@@ -10,7 +10,7 @@ var app = angular.module("Bookmark", ['firebase']);
 app.controller("Ctrl", function ($scope, $firebaseArray) {
 	$scope.url;  
 
-    var firebaseURL = "https://sbookmark.firebaseio.com/";
+    var firebaseURL = "https://readlater.firebaseio.com/";
 
     $scope.getList = function() {
     	var echoRef = new Firebase(firebaseURL);
@@ -69,11 +69,16 @@ $scope.FBLogout = function () {
 <ol ng-repeat="u in urlArr">
   <li> {{u.url}} {{u.title}} <A href="#" ng-click="remove(u);">[X]</A><a>
 </ol>
-<form>
-<input ng-model="url">
-<input type="submit" ng-click="add();">
-</form>
-  
+<form name="hello">
+        <input type="url" ng-model="url" name="name" required />
+        <span style="color:red" ng-show="hello.$error.required">
+        You Can't Leave This Field Empty</span>
+        <span style="color:red" ng-show="hello.$error.url">
+        Sorry Not a Valid URL, Don't Forget to Use http://</span>
+        <br />
+        <br />
+        <input type="submit" ng-if="hello.$error.url==false && hello.$error.required==false" ng-click="add();">
+</form> 
 
 </body>
-</html>
+<html>
